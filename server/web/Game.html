@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--                     -->
+<!-- POR GIL LOPES BUENO -->
+<!--                     -->
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+        <link href="res/layout.css" type="text/css" rel="stylesheet"/>
+    </head>
+    <body>
+
+        <canvas width="640" height="480">
+            <pre>
+*-----------------*
+|  Seu navegador  |
+|   não suporta   |
+|      Canvas     |
+*-----------------*
+            </pre>
+        </canvas>
+        
+    <!--<div>
+            Oque foi implementado: 
+            <ul>
+                <li>Aceleração e desaceleração</li>
+                <li>animação de sprite</li>
+                <li>detectando colisão (pedra)</li>
+                <li>tela seguindo personagem</li>
+            </ul>
+            Os bugs que foram encontrados:
+            <ul>
+                <li>Fiquei um tempo sem jogar, mudei de aba, quando voltei a 
+                    velocidade do personagem estava muito alta, deve ter a ver 
+                    com a frequencia de execuções do Update ser maior que o 
+                    Draw. Bugs dificeis de reproduzir são dificeis de debuggar</li>
+            </ul>
+        </div>-->
+
+<!--sempre é foda decidir em qual ordem importar o javascript, mas o requireJS não ajuda em nada-->
+
+      <script type="text/javascript">
+        var serverUrl = "http://localhost:3333/";
+      </script>
+
+        <script src="res/lib/excanvas.js" type="text/javascript"></script>
+        <script src="res/lib/socket.io.client.js" type="text/javascript"></script>
+        
+        <script src="res/util/Architetural.js" type="text/javascript"></script>
+        <script src="res/util/CanvasPainter.js" type="text/javascript"></script>
+        <script src="res/util/SocketManager.js" type="text/javascript"></script>
+        <script src="res/util/KeyInput.js" type="text/javascript"></script>
+        
+        <script src="res/entity/ElementsCollection.js" type="text/javascript"></script>
+        <script src="res/entity/Background.js" type="text/javascript"></script>
+        <script src="res/entity/Player.js" type="text/javascript"></script>
+        
+        <script src="res/Game.js" type="text/javascript"></script>
+        <script src="res/Main.js" type="text/javascript"></script>
+    </body>
+</html>

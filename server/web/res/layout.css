@@ -1,0 +1,15 @@
+/*                     */
+/* POR GIL LOPES BUENO */
+/*                     */
+body{
+    margin: 0;
+    background: #000;
+}
+
+canvas{
+    position: absolute;
+    margin-left: -320px;
+    margin-top: -240px;
+    left: 50%;
+    top: 50%;
+}

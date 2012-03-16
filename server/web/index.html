@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--                     -->
+<!-- POR GIL LOPES BUENO -->
+<!--                     -->
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+    <link href="offgame/layout.css" type="text/css" rel="stylesheet"/>
+  </head>
+  <body>
+      <script type="text/template" id="body">
+        
+        <header id="header">
+            <div class="centerblock">
+                <h1><%= game.name %></h1>
+            </div>
+        </header>
+        <nav id="nav">
+            <div class="centerblock">
+                <a><%= nav.home %></a>
+                <a><%= nav.about %></a>
+                <a><%= nav.printScreenAndVideos %></a>
+                <a><%= nav.help %></a>
+            </div>
+        </nav>
+        <div class="centerblock">
+            <section id="highlights" class="section">
+            </section>
+            <section class="section">
+            <form id="signin">
+                <h1>
+                    <%= signin.title %>
+                </h1>
+                <label>
+                    <span><%= signin.label.loginOrEmail %></span>
+                    <input type="text" id="signin-loginOrEmail"/>
+                </label>
+                <label>
+                    <span><%= signin.label.password %></span>
+                    <input type="password" id="signin-password"/>
+                </label>
+                <input type="button" value="<%= signin.button %>"/>
+            </form>
+            <form id="register">
+                <h1>
+                    <%= register.title %>
+                </h1>
+                <label>
+                    <span><%= register.label.login %></span>
+                    <input type="text" id="register-login"/>
+                </label>
+                <label>
+                    <span><%= register.label.email %></span>
+                    <input type="text" id="register-mail"/>
+                </label>
+                <label>
+                    <span><%= register.label.password %></span>
+                    <input type="password" id="register-password"/>
+                </label>
+                <input type="button" value="<%= register.button %>"/>
+            </form>
+            </section>
+        </div>
+        <footer id="footer">
+            <div class="centerblock">
+<!--                something here-->
+            </div>
+        </footer>
+          
+      </script>
+      <script type="text/javascript">
+        var serverUrl = "http://localhost:3333/";
+      </script>
+      <script src="res/lib/jquery.js" type="text/javascript"></script>
+      <script src="res/lib/underscore.js" type="text/javascript"></script>
+      <script src="res/util/Session.js" type="text/javascript"></script>
+      <script src="offgame/Controller.js" type="text/javascript"></script>
+  </body>
+</html>
