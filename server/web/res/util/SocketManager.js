@@ -2,7 +2,7 @@ var SocketManager = function(elements){
     
     WEB_SOCKET_SWF_LOCATION = "../lib/WebSocketMain.swf";
 
-    var socket = io.connect(serverUrl+'ws/');
+    var socket = io.connect(SERVER_URL+'ws/');
   
     socket.on('connect', function () {
         socket.on('message', function (msg) {
