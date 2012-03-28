@@ -1,9 +1,16 @@
-var Session = function(){
+var Session = function(initcallback){
+
+    var _this = this;
     
     this.setCookie = function(c_name,value,exdays){
         var exdate=new Date();
         exdate.setDate(exdate.getDate() + exdays);
         var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+        document.cookie=c_name + "=" + c_value;
+    };
+
+    this.deleteCookie = function(c_name){
+        var c_value= "1; expires=" + new Date().toUTCString();
         document.cookie=c_name + "=" + c_value;
     };
     
@@ -28,31 +35,42 @@ var Session = function(){
         var sessionid = this.getCookie("sessionid");
         
         if(sessionid){
-            $.get(SERVER_URL+'signin/', {
+            $.post(SERVER_URL+'signin/', {
                 sessionid: sessionid
             }, function(response){
                 if(response && !response.error)
                     inherit(_this, response.session);
                 else
                     _this.signinError = response.error;
+
+                if(initcallback)
+                    initcallback(_this);
             });
         }
     };
     
-    this.login = function(attrs, callback){
-        if(this.sessionid)
+    this.signin = function(login, password, callback){
+        if(this.sessionid){
+            delete this.signinError;
+            callback(_this);
             return;
-        
-        $.post(SERVER_URL+'signin/', attrs, 
+        }
+
+        $.post(SERVER_URL+'signin/', {
+            login: login,
+            password: this.sha1(password)
+        }, 
         function(response){
             
             if(response && !response.error){
                 inherit(_this, response.session);
+                delete _this.signinError;
                 _this.setCookie("sessionid", _this.sessionid, 365);
             }else
                 _this.signinError = response.error;
             
-            callback();
+            if(callback)
+                callback(_this);
         });
     };
     
@@ -62,9 +80,9 @@ var Session = function(){
         
         this.sessionid = null;
         this.login = null;
-        this.session = null;
-        
-        $.post(SERVER_URL+'logout/', callback);
+        this.password = null;
+
+        this.deleteCookie("sessionid");
     };
 
     this.sha1 = function(msg){
