@@ -53,9 +53,12 @@ var ElementsCollection = function(arr){
         });
     };
     
+    /**
+    * substitui o elemento com mesmo id ou coloca um novo elemento
+    */
     this.changePlayer = function(newP){
         var index = this.getIndexOf(function(el){
-            return el.id && el.id == newP.id;
+            return el.id && el.id == newP.id; //pega o index do elemento que tem o id igual o id do newP
         });
         
         if(index)

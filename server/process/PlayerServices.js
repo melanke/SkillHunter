@@ -12,7 +12,7 @@ exports.createService = function(){
 					callback({error: "yourSessionHasExpired"});
 			});
 		}else if (session.login && session.password) {
-			playerDao.selectByLoginAndPassword(session.login, session.password, function(results){
+			playerDao.selectByLoginOrEmailAndPassword(session.login, session.password, function(results){
 				if(results && results[0])
 					callback({session: results[0]});
 				else

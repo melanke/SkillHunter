@@ -43,6 +43,9 @@ var Game = function(elArray){
         });
     }
     
+
+    //mecanismo de loop, alguns navegadores retornam um callback de quando é a melhor hora para renderizar
+    //usa o callback ou usa um setInterval
     if (window.webkitRequestAnimationFrame) {
         window.onEachFrame = function(cb) {
         var _cb = function() {cb();webkitRequestAnimationFrame(_cb);}

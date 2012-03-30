@@ -31,14 +31,14 @@ exports.createDao = function(){
   //     return {indexes: indexes, values: values};
   // }
 
-  this.selectById = function(id, callback){
-    if(!id)
+  this.selectByLogin = function(login, callback){
+    if(!login)
       return [];
 
     client.query(
       "SELECT id, login, sessionid FROM " + table + " "+
-      "WHERE id = ? ",
-      [id],
+      "WHERE login = ? ",
+      [login],
       function(err, results, fields) {
         if (err) {
           throw err;
@@ -48,14 +48,14 @@ exports.createDao = function(){
       });
   };
 
-  this.selectByLoginAndPassword = function(login, password, callback){
+  this.selectByLoginOrEmailAndPassword = function(login, password, callback){
     if(!login || !password)
       return [];
 
     client.query(
       "SELECT id, login, sessionid FROM " + table + " "+
-      "WHERE login = ? AND password = ? ",
-      [login, password],
+      "WHERE (login = ? OR email = ?) AND password = ? ",
+      [login, login, password],
       function(err, results, fields) {
         if (err) {
           throw err;
