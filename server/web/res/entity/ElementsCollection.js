@@ -6,12 +6,18 @@ var ElementsCollection = function(arr){
     
     this.elements = arr;
     
+    /**
+    * executa uma funcao a cada item do array
+    */
     this.each = function(doforeach){
         for(var el in this.elements){
             doforeach(this.elements[el]);
         }
     };
     
+    /**
+    * passe como parametro, uma funcao que devido a um elemento como parametro retorna verdadeiro caso for este elemento que quer obter
+    */
     this.getIndexOf = function(filter){
         for(var i = 0; i<this.elements.length; i++){
             if(filter(this.elements[i]))
@@ -21,6 +27,9 @@ var ElementsCollection = function(arr){
         return null;
     };
     
+    /**
+    * retorna todos os elementos apartir de um filtro que retorna verdadeiro se o elemento for correto, parecido com getIndexOf
+    */
     this.findAll = function(filter){
         var response = [];
         
@@ -33,18 +42,24 @@ var ElementsCollection = function(arr){
         
     };
     
+    /**
+    * retorna todos os elementos com atributo obstacle
+    */
     this.findObstacles = function(){
         return this.findAll(function(el){
             return el.obstacle;
         });
     };
     
+    /**
+    * retorna o elemento do getElementById
+    */
     this.find = function(filter){
-        for(var el in this.elements){
-            if(filter(this.elements[el]))
-                return this.elements[el];
-        }
-        return null;
+        var elIndex = this.getIndexOf(filter);
+        if(elIndex)
+            return this.elements[elIndex];
+        else
+            return null;
     };
     
     this.findById = function(id){
@@ -67,6 +82,9 @@ var ElementsCollection = function(arr){
             this.elements.push(newP);
     };
     
+    /**
+    * ordena os elementos de acordo com a funcao passada como parametro que deve receber 2 parametros, se o retorno for negativo o parametro da esquerda deve ir primeiro
+    */
     this.sort = function(sorter){
         return new ElementsCollection(this.elements.sort(sorter));
     };

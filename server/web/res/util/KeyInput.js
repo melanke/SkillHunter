@@ -1,3 +1,6 @@
+/**
+* classe estatica que armazena o estado atual do teclado
+*/
 var Key = {
   _pressed: {},
 

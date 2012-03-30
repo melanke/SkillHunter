@@ -1,3 +1,6 @@
+/**
+* classe que representa a sessao do usuario
+*/
 var Session = function(initcallback){
 
     var _this = this;
@@ -29,8 +32,9 @@ var Session = function(initcallback){
         return null;
     };
     
-    var _this = this;
-    
+    /**
+    * construtor - se o usuario tiver cookies tenta obter os dados do usuario atravez do sessionid
+    */
     this.init = function(){
         var sessionid = this.getCookie("sessionid");
         
@@ -49,6 +53,9 @@ var Session = function(initcallback){
         }
     };
     
+    /**
+    * tenta obter os dados do usuario buscando por login e senha criptografada, executa o callback passando a resposta como parametro
+    */
     this.signin = function(login, password, callback){
         if(this.sessionid){
             delete this.signinError;
@@ -74,17 +81,23 @@ var Session = function(initcallback){
         });
     };
     
+    /**
+    * apaga os dados da sessao e o cookie
+    */
     this.logout = function(callback){
         if(!this.sessionid)
             return;
         
-        this.sessionid = null;
-        this.login = null;
-        this.password = null;
+        delete this.sessionid;
+        delete this.login;
+        delete this.password;
 
         this.deleteCookie("sessionid");
     };
 
+    /**
+    * usa criptografia sha1
+    */
     this.sha1 = function(msg){
  
         function rotate_left(n,s) {

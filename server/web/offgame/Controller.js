@@ -65,7 +65,7 @@ var Controller = function(){
         });
 
         $("#signin").keyup(function(e){
-            if(e.keyCode==13)
+            if(e.keyCode==13) //ENTER
                 _this.signin($("#signin-loginOrEmail").val(), $("#signin-password").val());
         })
     };
@@ -80,14 +80,14 @@ var Controller = function(){
     };
 
     this.renderSigninError = function(msg){
-        if($(".error").length)
+        if($(".error").length) //se existe o elemento .error é porque a msg d erro ainda está visivel, entao aborta
             return;
 
-        $("#signin input[type=button]").after("<div class='error' style='display: none'>"+userLanguage.error[msg]+"</div>");
-        $(".error").show("slow");
-        setTimeout(function(){
-            $(".error").hide("slow", function(){
-                $(".error").remove();
+        $("#signin input[type=button]").after("<div class='error' style='display: none'>"+userLanguage.error[msg]+"</div>");///cria o elemento .error
+        $(".error").show("slow"); //exibe ele gradativamente
+        setTimeout(function(){//depois de 5 segundos:
+            $(".error").hide("slow", function(){//esconde ele gradativamente
+                $(".error").remove();//e deleta
             });
         }, 5000);
     };

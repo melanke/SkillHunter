@@ -3,6 +3,9 @@ exports.createService = function(){
 
 	var _this = this;
 
+	/**
+	* Pede uma nova sessão passando o login e senha ou pede uma sessao existente passando o sessionid
+	*/
 	this.signin = function(session, callback){
 		if(session.sessionid){
 			playerDao.selectBySessionid(session.sessionid, function(results){
