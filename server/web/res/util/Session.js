@@ -54,9 +54,9 @@ var Session = function(initcallback){
     };
     
     /**
-    * tenta obter os dados do usuario buscando por login e senha criptografada, executa o callback passando a resposta como parametro
+    * tenta obter os dados do usuario buscando por username e senha criptografada, executa o callback passando a resposta como parametro
     */
-    this.signin = function(login, password, callback){
+    this.signin = function(username, password, callback){
         if(this.sessionid){
             delete this.signinError;
             callback(_this);
@@ -64,7 +64,7 @@ var Session = function(initcallback){
         }
 
         $.post(SERVER_URL+'signin/', {
-            login: login,
+            username: username,
             password: this.sha1(password)
         }, 
         function(response){
@@ -89,7 +89,7 @@ var Session = function(initcallback){
             return;
         
         delete this.sessionid;
-        delete this.login;
+        delete this.username;
         delete this.password;
 
         this.deleteCookie("sessionid");

@@ -31,14 +31,14 @@ exports.createDao = function(){
   //     return {indexes: indexes, values: values};
   // }
 
-  this.selectByLogin = function(login, callback){
-    if(!login)
+  this.selectByUsername = function(username, callback){
+    if(!username)
       return [];
 
     client.query(
-      "SELECT id, login, sessionid FROM " + table + " "+
-      "WHERE login = ? ",
-      [login],
+      "SELECT id, username, sessionid FROM " + table + " "+
+      "WHERE username = ? ",
+      [username],
       function(err, results, fields) {
         if (err) {
           throw err;
@@ -48,14 +48,14 @@ exports.createDao = function(){
       });
   };
 
-  this.selectByLoginOrEmailAndPassword = function(login, password, callback){
-    if(!login || !password)
+  this.selectByUsernameOrEmailAndPassword = function(username, password, callback){
+    if(!username || !password)
       return [];
 
     client.query(
-      "SELECT id, login, sessionid FROM " + table + " "+
-      "WHERE (login = ? OR email = ?) AND password = ? ",
-      [login, login, password],
+      "SELECT id, username, sessionid FROM " + table + " "+
+      "WHERE (username = ? OR email = ?) AND password = ? ",
+      [username, username, password],
       function(err, results, fields) {
         if (err) {
           throw err;
@@ -70,7 +70,7 @@ exports.createDao = function(){
       return [];
 
     client.query(
-      "SELECT id, login, sessionid FROM " + table + " "+
+      "SELECT id, username, sessionid FROM " + table + " "+
       "WHERE sessionid = ? ",
       [sessionid],
       function(err, results, fields) {
