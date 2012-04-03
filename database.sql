@@ -24,11 +24,13 @@ DROP TABLE IF EXISTS `player`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `player` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `login` varchar(20) NOT NULL,
+  `username` varchar(20) DEFAULT NULL,
   `password` char(40) DEFAULT NULL,
   `sessionid` bigint(20) DEFAULT NULL,
+  `email` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `login` (`login`)
+  UNIQUE KEY `login` (`username`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -38,7 +40,7 @@ CREATE TABLE `player` (
 
 LOCK TABLES `player` WRITE;
 /*!40000 ALTER TABLE `player` DISABLE KEYS */;
-INSERT INTO `player` VALUES (1,'melanke','6367c48dd193d56ea7b0baad25b19455e529f5ee',123);
+INSERT INTO `player` VALUES (1,'melanke','6367c48dd193d56ea7b0baad25b19455e529f5ee',123,NULL);
 /*!40000 ALTER TABLE `player` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-03-28 18:19:31
+-- Dump completed on 2012-04-03 16:36:03
