@@ -1,43 +1,5 @@
 var Controller = function(){
 
-    var languages = {
-        ptbr: {
-            game: {
-                name: "SkillHunter"
-            },
-            nav: {
-                home: "Início",
-                about: "Sobre",
-                printScreenAndVideos: "Imagens e Vídeos",
-                help: "Ajuda"
-            },
-            signin: {
-                title: "Faça Login",
-                label: {
-                    usernameOrEmail: "Login ou E-mail",
-                    password: "Senha"
-                },
-                button: "Entrar"
-            },
-            register: {
-                title: "Crie uma conta",
-                label: {
-                    username: "Login",
-                    email: "E-mail",
-                    password: "Senha"
-                },
-                button: "Registrar"
-            },
-            error: {
-                invalidUsernameOrPassword: "Login e Senha incompatíveis!",
-                unavailableUsername: "O Login escolhido não está disponível!",
-                unavailableEmail: "O E-mail informado já foi registrado!",
-                outOfLengthRangeUsername: "O Login deve conter de 8 à 40 caracteres",
-                invalidCharsUsername: "Só serão aceitos letras, números e underline (_)"
-            }
-        }
-    };
-
     var userLanguage = languages.ptbr;
 
     var playerServ = new PlayerServices();
@@ -82,6 +44,23 @@ var Controller = function(){
         $("#register-email").blur(function(){
             _this.verifyEmail($(this).val());
         });
+
+        $("#register input[type=button]").click(function(){
+            _this.register({
+                username: $("#register-username").val(),
+                email: $("#register-email").val(),
+                password: $("#register-password").val()
+            });
+        });
+
+        $("#register").keyup(function(e){
+            if(e.keyCode==13) //ENTER
+                _this.register({
+                    username: $("#register-username").val(),
+                    email: $("#register-email").val(),
+                    password: $("#register-password").val()
+                });
+        });
     };
 
     this.signin = function(username, password){
@@ -93,38 +72,60 @@ var Controller = function(){
         });
     };
 
+    this.register = function(player){
+        playerServ.register(player, function(response){
+            if(response && !response.error){
+                //TODO: send to confirm email page
+                //temp-test-code:
+                _this.signin(player.username, player.password);
+            }else
+                _this.renderRegisterError(response.error);
+        });
+    };
+
     this.verifyUsername = function(username){
-        if(username.length < 8 || username.length > 40){
+        if(username.length < 6 || username.length > 20){
             this.renderRegisterError("outOfLengthRangeUsername");
         }else if(/\W/.test(username)){
             this.renderRegisterError("invalidCharsUsername");
-        }else if(playerServ.getPlayerByUsername(username)){
-            this.renderRegisterError("unavailableUsername");
+        }else{
+            playerServ.getPlayerByUsername(username, function(player){
+                if(player)
+                    _this.renderRegisterError("unavailableUsername");
+            });
         }
     };
 
     this.verifyEmail = function(email){
         if(email.length < 10 || email.length > 80){
             this.renderRegisterError("outOfLengthRangeEmail");
-        }else if(/^[^@]+@[^@.]+\.[^@]*\w\w$/.test(email)){
+        }else if(!/^[^@]+@[^@.]+\.[^@]*\w\w$/.test(email)){
             this.renderRegisterError("invalidCharsEmail");
-        }else if(playerServ.getPlayerByEmail(email)){
-            this.renderRegisterError("unavailableEmail");
+        }else{
+            playerServ.getPlayerByEmail(email, function(player){
+                if(player)
+                    _this.renderRegisterError("unavailableEmail");
+            });
         }
     };
 
     this.renderSigninError = function(msg){
-        this.renderError("#signin input[type=button]", msg);
+        this.renderError("#signin input[type=button]", userLanguage.error.signin[msg] || userLanguage.error.signin["unexpectedError"]);
     };
 
     this.renderRegisterError = function(msg){
-        this.renderError("#register input[type=button]", msg);
+        this.renderError("#register input[type=button]", userLanguage.error.register[msg] || userLanguage.error.signin["unexpectedError"]);
     };
 
     this.renderError = function(elSelectorBefore, msg){
-        $(elSelectorBefore).after("<div class='error' style='display: none'>"+userLanguage.error[msg]+"</div>");//cria o elemento .error
+        if($(".error").length){ //se ja existir uma mensagem de erro
+            $(".error").remove(); //apaga a mensagem para aparecer a nova
+            clearTimeout(this.renderErrorTimeout); //tira o timeout para a mensagem nao desaparecer antes da hora
+        }
+
+        $(elSelectorBefore).after("<div class='error' style='display: none'>"+msg+"</div>");//cria o elemento .error
         $(".error").show("slow"); //exibe ele gradativamente
-        setTimeout(function(){//depois de 5 segundos:
+        this.renderErrorTimeout = setTimeout(function(){//depois de 5 segundos:
             $(".error").hide("slow", function(){//esconde ele gradativamente
                 $(".error").remove();//e deleta
             });

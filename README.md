@@ -9,6 +9,7 @@ SkillHunter is a MMORPG game that runs on browser with no plugins, it uses javas
 * ```$ npm install mysql```
 * ```$ npm install socket.io```
 * ```$ npm install express```
+* ```$ npm install trycatch```
 * ```$ mysql -u root```
 * ```mysql> create database skillhunter```
 * ```$ mysql -u root < database.sql```

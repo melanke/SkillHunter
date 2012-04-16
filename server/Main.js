@@ -17,6 +17,18 @@ app.post('/signin/', function(req, res) {
 	});
 });
 
+app.get('/player/', function(req, res) {
+  playerServ.getPlayer(req.query, function(result){
+    res.send(result);
+  });
+});
+
+app.post('/player/register', function(req, res) {
+  playerServ.register(req.body, function(result){
+    res.send(result);
+  });
+});
+
 io.of('/ws/').on('connection', function (socket) {
   socket.on('message', function (msg) {
   	socket.broadcast.send(msg);

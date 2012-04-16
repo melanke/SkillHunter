@@ -36,9 +36,26 @@ exports.createDao = function(){
       return [];
 
     client.query(
-      "SELECT id, username, sessionid FROM " + table + " "+
+      "SELECT id, username FROM " + table + " "+
       "WHERE username = ? ",
       [username],
+      function(err, results, fields) {
+        if (err) {
+          throw err;
+        }
+
+        callback(results);
+      });
+  };
+
+  this.selectByEmail = function(email, callback){
+    if(!email)
+      return [];
+
+    client.query(
+      "SELECT id, username, email FROM " + table + " "+
+      "WHERE email = ? ",
+      [email],
       function(err, results, fields) {
         if (err) {
           throw err;
@@ -82,6 +99,15 @@ exports.createDao = function(){
         callback(results);
       });
   };
+
+  this.register = function(player, callback){
+    client.query(
+      "INSERT INTO " + table + " "+
+      "(username, email, password) "+
+      "VALUES (?, ?, ?)",
+      [player.username, player.email, player.password],
+      callback);
+  }
 
   return this;
 
