@@ -29,4 +29,17 @@ var PlayerServices = function(){
 		}, callback);
 	};
 
+	this.getPlayerEnvironment = function(username, callback){
+		$.get(SERVER_URL+'player/environment/',{
+			username: username
+		}, function(data){
+            var elements = [];
+            elements.push(new Player(data.player));
+            elements = elements.concat(data.playersNear);
+            elements = elements.concat(maps[data.player.map]);
+
+			callback(elements, data.player.id);
+		});
+	};
+
 };

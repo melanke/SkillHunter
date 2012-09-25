@@ -6,8 +6,8 @@
  * ElementsCollection e setado no atributo model
  */
 
-var Game = function(elArray){
-    this.playerId = _$_id;
+var Game = function(elArray, playerId){
+    this.playerId = playerId;
         
     var loops = 0, 
         fps = 50,

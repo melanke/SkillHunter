@@ -33,6 +33,20 @@ CanvasPainter.blackEnd = function(){
     CanvasPainter.context.fillRect(0, 0, CanvasPainter.screen.w, CanvasPainter.screen.h);
 };
 
+CanvasPainter.name = function(el){
+    CanvasPainter.context.textAlign = "center";
+    CanvasPainter.context.textBaseline = "bottom";
+    CanvasPainter.context.fillText(el.username, el.x + (el.w/2) + CanvasPainter.getCenterX(), el.y-3 + CanvasPainter.getCenterY());
+};
+
+CanvasPainter.getCenterX = function(){
+    return (CanvasPainter.screen.w/2) - CanvasPainter.screen.center.x;
+};
+
+CanvasPainter.getCenterY = function(){
+    return (CanvasPainter.screen.h/2) - CanvasPainter.screen.center.y;
+};
+
 /**
  * desenha o elemento de acordo com seus atributos
  * se o elemento tiver o atributo sprite.w e sprite.h fará um pattern
@@ -81,8 +95,8 @@ CanvasPainter.sprite = function(el){
                     el.sprite.y+spriteYOffset, 
                     el.sprite.w, 
                     el.sprite.h,
-                    _x + (CanvasPainter.screen.w/2) - CanvasPainter.screen.center.x, //desvio do centro da tela que é alterado pelo player
-                    _y + (CanvasPainter.screen.h/2) - CanvasPainter.screen.center.y, //desvio do centro da tela que é alterado pelo player
+                    _x + CanvasPainter.getCenterX(), //desvio do centro da tela que é alterado pelo player
+                    _y + CanvasPainter.getCenterY(), //desvio do centro da tela que é alterado pelo player
                     el.sprite.w, 
                     el.sprite.h);
                     
@@ -95,8 +109,8 @@ CanvasPainter.sprite = function(el){
             el.sprite.y+spriteYOffset, 
             el.w, 
             el.h,
-            el.x + (CanvasPainter.screen.w/2) - CanvasPainter.screen.center.x, 
-            el.y + (CanvasPainter.screen.h/2) - CanvasPainter.screen.center.y, 
+            el.x + CanvasPainter.getCenterX(), 
+            el.y + CanvasPainter.getCenterY(), 
             el.w, 
             el.h);
     }

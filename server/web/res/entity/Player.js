@@ -6,15 +6,6 @@
 
 var Player = function(args){
     
-    for(var p in args) this[p] = args[p];
-    
-    this.acceleration = 0;
-    this.speed = 0;
-    this.maxSpeed = 6;
-    this.w = 32;
-    this.h = 32;
-    this.padding = 4; //quantos pixels serão ignorados ao colidir com outro objeto
-    
     this.sprites = {
         stand: {
             down: {
@@ -65,11 +56,27 @@ var Player = function(args){
             }
         }
     };
+
+    inherit(this, args);
+    
+    for(var p in args) this[p] = args[p];
+    
+    this.acceleration = 0;
+    this.speed = 0;
+    this.maxSpeed = 6;
+    this.w = 32;
+    this.h = 32;
+    this.padding = 4; //quantos pixels serão ignorados ao colidir com outro objeto
             
     CanvasPainter.screen.center = { 
         x: this.x,
         y: this.y
     }
+
+    this.draw = function(){
+        CanvasPainter.sprite(this);
+        CanvasPainter.name(this);
+    };
     
     this.update = function(){
             
@@ -92,7 +99,7 @@ var Player = function(args){
         if(this.speed){ //se estiver em movimento
             var _this = this;
             
-            game.model.findObstacles().each(function(el){ //para cada obstaculo do model de game
+            main.game.model.findObstacles().each(function(el){ //para cada obstaculo do model de game
                 if(_this.collidesWith(el)) //se player colidir com este obstaculo
                     _this.stepBack(); //irá dar um passo para traz e parar
             });

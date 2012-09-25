@@ -45,6 +45,24 @@ exports.createService = function(){
 		}
 	};
 
+	this.getPlayerEnvironment = function(playerParam, callback){
+		if(playerParam.username){
+			playerDao.selectByUsername(playerParam.username, function(results){
+				if(results){
+					var response = {
+						player: results[0],
+						playersNear: []
+					};
+					callback(response);
+				}
+				else
+					callback(null);
+			});
+		}else{
+			callback(null);
+		}
+	};
+
 	this.register = function(player, callback){
 		trycatch(function(){
 			_this.validateUsername(player.username);

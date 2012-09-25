@@ -1,41 +1,40 @@
-var _$_id = parseInt(Math.random() * 100);
+var Main = function(){
 
-//Game com G maiusculo é a classe, game com g minusculo é um singleton, variavel global, instância do Game
-var game = new Game([
-    
-    new Player({
-        id: _$_id,
-        x: 320,
-        y: 240,
-        z: 0
-    }),
+    var _this = this;
 
-    new Stone({
-        x: 480,
-        y: 320,
-        z: 0
-    }),
+    var playerServ = new PlayerServices();
 
-    new Flower({
-        x: 256,
-        y: 320,
-        z: 0
-    }),
+    this.init = function(){
+        this.startSession();
+    };   
 
-    new Grama({
-        x: 0,
-        y: 0,
-        z: -1,
-        w: 640,
-        h: 480
-    }),
+    this.startSession = function(){
+        this.session = new Session(function(sess){
+            if(!sess.sessionid)
+                _this.redirectToIndex();
 
-    new Carpete({
-        x: 224,
-        y: 288,
-        z: -1,
-        w: 272,
-        h: 96
-    })
-    
-]);
+            _this.startGame();
+        });
+    };
+
+    this.redirectToIndex = function(){
+        window.location.href= "index.html";
+    };
+
+    this.getGameElements = function(callback){
+        playerServ.getPlayerEnvironment(this.session.username, function(elements, playerId){
+            callback(elements, playerId);
+        });
+    };
+
+    this.startGame = function(){
+        this.getGameElements(function(elements, playerId){
+            _this.game = new Game(elements, playerId);
+        });
+    };
+
+    this.init();
+
+};
+
+var main = new Main();

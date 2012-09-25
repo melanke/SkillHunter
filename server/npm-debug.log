@@ -1,0 +1,27 @@
+info it worked if it ends with ok
+verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+verbose cli   'install',
+verbose cli   'jitsu',
+verbose cli   '-g' ]
+info using npm@1.1.0-alpha-2
+info using node@v0.6.3
+verbose config file C:\Users\Gil L Bueno\.npmrc
+verbose config file C:\Program Files\etc\npmrc
+verbose config file C:\Program Files\nodejs\node_modules\npm\npmrc
+verbose mkdir done: C:\Program Files\nodejs 755
+ERR! Error: EACCES, permission denied 'C:\Program Files\nodejs'
+ERR! Report this *entire* log at:
+ERR!     <http://github.com/isaacs/npm/issues>
+ERR! or email it to:
+ERR!     <npm-@googlegroups.com>
+ERR! 
+ERR! System Windows_NT 6.1.7601
+ERR! command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "jitsu" "-g"
+ERR! cwd C:\Users\Gil L Bueno\Dropbox\Public\SkillHunter\server
+ERR! node -v v0.6.3
+ERR! npm -v 1.1.0-alpha-2
+ERR! path C:\Program Files\nodejs
+ERR! code EACCES
+ERR! message EACCES, permission denied 'C:\Program Files\nodejs'
+verbose exit [ 1, true ]

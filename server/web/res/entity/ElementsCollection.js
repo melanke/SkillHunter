@@ -91,6 +91,11 @@ var ElementsCollection = function(arr){
     
     this.sortRenderOrder = function(){
         return this.sort(function(a,b){
+            if(!a.z)
+                a.z = 0;
+            if(!b.z)
+                b.z = 0;
+            
             if(a.z == b.z)
                 return (a.y < b.y) ? -1 : 1;
             else
