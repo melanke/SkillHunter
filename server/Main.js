@@ -1,6 +1,8 @@
 var express = require('express');
-var app = express.createServer();
-var io = require('socket.io').listen(app);
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+
 var playerServ = require('./process/PlayerServices').createService();
 app.listen(3333);
 
