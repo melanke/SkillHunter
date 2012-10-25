@@ -7,19 +7,21 @@
 
 exports.createDao = function(){
 
-  var mysql = require('mysql'),
-    table = 'player',
-    client = mysql.createClient({
+  var mysql      = require('mysql');
+  var connection = mysql.createConnection({
       user: 'root',
       password: '',
       database: 'skillhunter'
     });
+  var table = 'player';
+
+  connection.connect();
 
   this.selectByUsername = function(username, callback){
     if(!username)
       return [];
 
-    client.query(
+    connection.query(
       "SELECT id, username, map, x, y FROM " + table + " "+
       "WHERE username = ? ",
       [username],
@@ -36,7 +38,7 @@ exports.createDao = function(){
     if(!email)
       return [];
 
-    client.query(
+    connection.query(
       "SELECT id, username, email, map, x, y FROM " + table + " "+
       "WHERE email = ? ",
       [email],
@@ -53,7 +55,7 @@ exports.createDao = function(){
     if(!username || !password)
       return [];
 
-    client.query(
+    connection.query(
       "SELECT id, username, email, sessionid FROM " + table + " "+
       "WHERE (username = ? OR email = ?) AND password = ? ",
       [username, username, password],
@@ -70,7 +72,7 @@ exports.createDao = function(){
     if(!sessionid)
       return [];
 
-    client.query(
+    connection.query(
       "SELECT id, username, email, sessionid FROM " + table + " "+
       "WHERE sessionid = ? ",
       [sessionid],
@@ -85,7 +87,7 @@ exports.createDao = function(){
   };
 
   this.register = function(player, callback){
-    client.query(
+    connection.query(
       "INSERT INTO " + table + " "+
       "(username, email, password) "+
       "VALUES (?, ?, ?)",
